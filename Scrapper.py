@@ -64,3 +64,27 @@ topics_df = pd.DataFrame(topics_dictionary)
 # print(topics_df)
 
 topics_df .to_csv('Topics.csv')
+
+#########
+
+topic_page_url = topic_URLs[0]
+# print(topic_page)
+response = requests.get(topic_page_url)
+# print(response.status_code)
+
+
+
+doc_2 = BeautifulSoup(response.text, 'html.parser')
+h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
+repo_tags = doc_2.find_all('h3', class_ = h3_selector)
+
+# print(len(repo_tags))
+# print(repo_tags[2])
+a_tags = repo_tags[0].find_all('a')
+# print(a_tags[0])
+username = a_tags[0].text.strip()
+# print(username)
+repo_name = a_tags[1].text.strip()
+# print(repo_name)
+repo_url = base_url + a_tags[1]['href']
+print(repo_url)
