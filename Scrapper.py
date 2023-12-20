@@ -1,7 +1,7 @@
 import requests
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
 
 
 topics_url = 'https://github.com/topics'
@@ -37,21 +37,29 @@ topic_titles = []
 for tag in topic_title_tags:
     topic_titles.append(tag.text)
 
-print(topic_titles[:5])
+# print(topic_titles[:5])
 
 topic_desc = []
 for tag in topic_description:
     topic_desc.append(tag.text.strip())
 
-print(topic_desc[:5])
+# print(topic_desc[:5])
 
 topic_URLs = []
 base_url = "https://github.com"
 for tag in topic_link_tags:
     topic_URLs.append(base_url+tag['href'])
+# print(topic_URLs[:5]) 
 
-print(topic_URLs[:5]) 
+import pandas as pd
 
+topics_dictionary = {
+    'Topic Title': topic_titles,
+    'Topic Description': topic_desc,
+    'Topic URLs': topic_URLs
+}
 
+topics_df = pd.DataFrame(topics_dictionary)
 
+# print(topics_df)
 
