@@ -63,3 +63,4 @@ topics_df = pd.DataFrame(topics_dictionary)
 
 # print(topics_df)
 
+topics_df .to_csv('Topics.csv')
