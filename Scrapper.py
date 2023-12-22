@@ -164,9 +164,13 @@ def get_topic_repos(topic_doc):
 # # print(topic7_repos)
 
 # get_topic_repos(get_topic_page(topic_URLs[4])).to_csv('Android.csv', index = None)
-def scrape_topic(topic_url, topic_name):
+import os
+
+def scrape_topic(topic_url, path):
+    if os.path.exists(path):
+        print(f"The file {path} already exists. Skipping")
     topic_df = get_topic_repos(get_topic_page(topic_url))
-    topic_df.to_csv(topic_name + '.csv', index = None)
+    topic_df.to_csv(path, index = None)
 
 
 def get_topic_title(doc):
@@ -214,9 +218,10 @@ def scrape_topics():
 def scrape_topics_repos():
     print('Scraping list of topics')
     topics_df = scrape_topics()
+    os.makedirs('data',exist_ok=True)
     for index, row in topics_df.iterrows():
         print('Scraping top repositories for "{}"'.format(row['title']))
-        scrape_topic(row['url'], row['title'])
+        scrape_topic(row['url'], 'data/{}.csv'.format(row['title']))
 
 
 print(scrape_topics_repos())
