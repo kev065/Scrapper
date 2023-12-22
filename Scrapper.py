@@ -6,8 +6,8 @@ import requests
 
 topics_url = 'https://github.com/topics'
 response = requests.get(topics_url)
-# print(response.status_code)
-# print(len(response.text))
+# # print(response.status_code)
+# # print(len(response.text))
 page_content = response.text
 
 with open('webpage.html', 'w') as topics_list:
@@ -74,9 +74,9 @@ import pandas as pd
 
 
 
-topic_doc = BeautifulSoup(response.text, 'html.parser')
-h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
-repo_tags = topic_doc.find_all('h3', class_ = h3_selector)
+# topic_doc = BeautifulSoup(response.text, 'html.parser')
+# h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
+# repo_tags = topic_doc.find_all('h3', class_ = h3_selector)
 
 # print(len(repo_tags))
 # # print(repo_tags[2])
@@ -89,9 +89,9 @@ repo_tags = topic_doc.find_all('h3', class_ = h3_selector)
 # repo_url = base_url + a_tags[1]['href']
 # print(repo_url)
 
-stars_selector = "Counter js-social-count"
-star_tags = topic_doc.find_all("span",class_ = stars_selector )
-# print(star_tags[0].text)
+# stars_selector = "Counter js-social-count"
+# star_tags = topic_doc.find_all("span",class_ = stars_selector )
+# # print(star_tags[0].text)
 
 def parse_star_count(stars_str):
     stars_str = stars_str.strip()
@@ -114,6 +114,9 @@ def parse_star_count(stars_str):
 #     topic_repos_dict['Repo_name'].append(repo_info[1])
 #     topic_repos_dict['Stars'].append(repo_info[2])
 #     topic_repos_dict['Repo_URL'].append(repo_info[3])
+
+
+import os
 
 def get_topic_page(topics_url):
     response = requests.get(topics_url)
@@ -164,7 +167,7 @@ def get_topic_repos(topic_doc):
 # # print(topic7_repos)
 
 # get_topic_repos(get_topic_page(topic_URLs[4])).to_csv('Android.csv', index = None)
-import os
+
 
 def scrape_topic(topic_url, path):
     if os.path.exists(path):
@@ -222,6 +225,6 @@ def scrape_topics_repos():
     for index, row in topics_df.iterrows():
         print('Scraping top repositories for "{}"'.format(row['title']))
         scrape_topic(row['url'], 'data/{}.csv'.format(row['title']))
-
+    return 'Scrapping Completed'
 
 print(scrape_topics_repos())
