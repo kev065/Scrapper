@@ -74,9 +74,9 @@ response = requests.get(topic_page_url)
 
 
 
-doc_2 = BeautifulSoup(response.text, 'html.parser')
+topic_doc = BeautifulSoup(response.text, 'html.parser')
 h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
-repo_tags = doc_2.find_all('h3', class_ = h3_selector)
+repo_tags = topic_doc.find_all('h3', class_ = h3_selector)
 
 # print(len(repo_tags))
 # print(repo_tags[2])
@@ -90,7 +90,7 @@ repo_url = base_url + a_tags[1]['href']
 # print(repo_url)
 
 stars_selector = "Counter js-social-count"
-star_tags = doc_2.find_all("span",class_ = stars_selector )
+star_tags = topic_doc.find_all("span",class_ = stars_selector )
 # print(star_tags[0].text)
 
 def parse_star_count(stars_str):
@@ -115,8 +115,8 @@ def parse_star_count(stars_str):
 #     topic_repos_dict['Stars'].append(repo_info[2])
 #     topic_repos_dict['Repo_URL'].append(repo_info[3])
 
-def get_topic_page(topic1_url):
-    response = requests.get(topic_page_url)
+def get_topic_page(topics_url):
+    response = requests.get(topics_url)
     if response.status_code != 200:
         raise Exception('Failed to load page {}'.format(topics_url))
     
@@ -134,10 +134,10 @@ def get_repo_info(h3_tag, star_tags):
 
 def get_topic_repos(topic_doc):  
     h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
-    repo_tags = doc_2.find_all('h3', class_ = h3_selector)
+    repo_tags = topic_doc.find_all('h3', class_ = h3_selector)
 
     stars_selector = "Counter js-social-count"
-    star_tags = doc_2.find_all("span",class_ = stars_selector )
+    star_tags = topic_doc.find_all("span",class_ = stars_selector )
 
     topic_repos_dict = {
         'Username': [],
@@ -157,10 +157,49 @@ def get_topic_repos(topic_doc):
 
 
 
-# print(topic_repos_df)
+# url7 = topic_URLs[7]
+# topic7_doc = get_topic_page(url7)
+# topic7_repos = get_topic_repos(topic7_doc)
+
+# print(topic7_repos)
+
+get_topic_repos(get_topic_page(topic_URLs[4])).to_csv('Android.csv', index = None)
+
+def get_topic_title(doc):
+    title_selection = "f3 lh-condensed mb-0 mt-1 Link--primary"
+    topic_title_tags = doc.find_all('p', class_=title_selection)
+    topic_titles = []
+    for tag in topic_title_tags:
+        topic_titles.append(tag.text)
+    return topic_titles
+
+def get_topic_description(doc):
+    
+
+def scrape_topics():
+    topics_url = 'https://github.com/topics'
+    response = requests.get(topics_url)
+    if response.status_code != 200:
+        raise Exception('Failed to load page {}'.format(topics_url))
+    
+    description = 'f5 color-fg-muted mb-0 mt-1'
+    topic_description = doc.find_all('p', class_ = description)
+
+    link = "no-underline flex-grow-0"
+    topic_link_tags = doc.find_all('a',class_ =link)
+
+    
+
+    topic_desc = []
+    for tag in topic_description:
+        topic_desc.append(tag.text.strip())
+
+    topic_URLs = []
+    base_url = "https://github.com"
+    for tag in topic_link_tags:
+        topic_URLs.append(base_url+tag['href'])
 
 
 
 
-
-
+def scrape_topics_repos():
