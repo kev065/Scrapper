@@ -87,4 +87,80 @@ username = a_tags[0].text.strip()
 repo_name = a_tags[1].text.strip()
 # print(repo_name)
 repo_url = base_url + a_tags[1]['href']
-print(repo_url)
+# print(repo_url)
+
+stars_selector = "Counter js-social-count"
+star_tags = doc_2.find_all("span",class_ = stars_selector )
+# print(star_tags[0].text)
+
+def parse_star_count(stars_str):
+    stars_str = stars_str.strip()
+    if stars_str[-1] == 'k':
+        return int(float(stars_str[:-1])*1000)
+    return (int(stars_str))
+
+# print(parse_star_count(star_tags[5].text.strip()))
+
+# topic_repos_dict = {
+#     'Username': [],
+#     'Repo_name': [],
+#     'Stars': [],
+#     'Repo_URL': []
+# }
+
+# for i in range(len(repo_tags)):
+#     repo_info = get_repo_info(repo_tags[i], star_tags[i])
+#     topic_repos_dict['Username'].append(repo_info[0])
+#     topic_repos_dict['Repo_name'].append(repo_info[1])
+#     topic_repos_dict['Stars'].append(repo_info[2])
+#     topic_repos_dict['Repo_URL'].append(repo_info[3])
+
+def get_topic_page(topic1_url):
+    response = requests.get(topic_page_url)
+    if response.status_code != 200:
+        raise Exception('Failed to load page {}'.format(topics_url))
+    
+    topic_doc = BeautifulSoup(response.text, 'html.parser')
+
+    return topic_doc
+
+def get_repo_info(h3_tag, star_tags):
+    a_tags = h3_tag.find_all('a')
+    username = a_tags[0].text.strip()
+    repo_name = a_tags[1].text.strip()
+    repo_url = base_url + a_tags[1]['href']
+    stars = parse_star_count(star_tags.text.strip())
+    return username, repo_name, stars, repo_url
+
+def get_topic_repos(topic_doc):  
+    h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
+    repo_tags = doc_2.find_all('h3', class_ = h3_selector)
+
+    stars_selector = "Counter js-social-count"
+    star_tags = doc_2.find_all("span",class_ = stars_selector )
+
+    topic_repos_dict = {
+        'Username': [],
+        'Repo_name': [],
+        'Stars': [],
+        'Repo_URL': []
+    }
+
+    for i in range(len(repo_tags)):
+        repo_info = get_repo_info(repo_tags[i], star_tags[i])
+        topic_repos_dict['Username'].append(repo_info[0])
+        topic_repos_dict['Repo_name'].append(repo_info[1])
+        topic_repos_dict['Stars'].append(repo_info[2])
+        topic_repos_dict['Repo_URL'].append(repo_info[3])
+
+    return pd.DataFrame(topic_repos_dict)
+
+
+
+# print(topic_repos_df)
+
+
+
+
+
+
