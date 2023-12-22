@@ -4,16 +4,8 @@ import pandas as pd
 import os
 
 
-topics_url = 'https://github.com/topics'
-response = requests.get(topics_url)
-page_content = response.text
-
-with open('webpage.html', 'w') as topics_list:
-    topics_list.write(page_content)
-
-doc = BeautifulSoup(page_content, 'html.parser')
-
 base_url = "https://github.com"
+topics_url = 'https://github.com/topics'
 
 
 def parse_star_count(stars_str):
@@ -21,8 +13,6 @@ def parse_star_count(stars_str):
     if stars_str[-1] == 'k':
         return int(float(stars_str[:-1])*1000)
     return (int(stars_str))
-
-
 
 
 def get_topic_page(topics_url):
@@ -41,6 +31,8 @@ def get_repo_info(h3_tag, star_tags):
     repo_url = base_url + a_tags[1]['href']
     stars = parse_star_count(star_tags.text.strip())
     return username, repo_name, stars, repo_url
+
+doc = get_topic_page(topics_url)
 
 def get_topic_repos(topic_doc):  
     h3_selector = 'f3 color-fg-muted text-normal lh-condensed'
@@ -109,9 +101,7 @@ def scrape_topics():
         'description': get_topic_description(doc),
         'url': get_topic_urls(doc)
     }
-
     return pd.DataFrame(topics_dictionary)
-
 
 
 def scrape_topics_repos():
