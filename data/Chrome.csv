@@ -1,10 +1,10 @@
 Username,Repo_name,Stars,Repo_URL
 electron,electron,110000,https://github.com/electron/electron
 puppeteer,puppeteer,85400,https://github.com/puppeteer/puppeteer
-microsoft,playwright,57500,https://github.com/microsoft/playwright
+microsoft,playwright,57600,https://github.com/microsoft/playwright
 iamadamdev,bypass-paywalls-chrome,44200,https://github.com/iamadamdev/bypass-paywalls-chrome
 FiloSottile,mkcert,43900,https://github.com/FiloSottile/mkcert
-jaywcjlove,linux-command,26100,https://github.com/jaywcjlove/linux-command
+jaywcjlove,linux-command,26300,https://github.com/jaywcjlove/linux-command
 ovity,octotree,22600,https://github.com/ovity/octotree
 segment-boneyard,nightmare,19500,https://github.com/segment-boneyard/nightmare
 checkly,headless-recorder,14900,https://github.com/checkly/headless-recorder

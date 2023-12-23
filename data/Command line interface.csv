@@ -1,10 +1,10 @@
 Username,Repo_name,Stars,Repo_URL
 ohmyzsh,ohmyzsh,165000,https://github.com/ohmyzsh/ohmyzsh
-junegunn,fzf,56200,https://github.com/junegunn/fzf
+junegunn,fzf,56300,https://github.com/junegunn/fzf
 sherlock-project,sherlock,45800,https://github.com/sherlock-project/sherlock
 sharkdp,bat,44300,https://github.com/sharkdp/bat
 BurntSushi,ripgrep,42100,https://github.com/BurntSushi/ripgrep
-jesseduffield,lazygit,40900,https://github.com/jesseduffield/lazygit
+jesseduffield,lazygit,41000,https://github.com/jesseduffield/lazygit
 wagoodman,dive,39900,https://github.com/wagoodman/dive
 google,zx,39300,https://github.com/google/zx
 chubin,cheat.sh,36600,https://github.com/chubin/cheat.sh
@@ -16,6 +16,6 @@ sharkdp,fd,29900,https://github.com/sharkdp/fd
 alebcay,awesome-shell,29500,https://github.com/alebcay/awesome-shell
 ibraheemdev,modern-unix,28800,https://github.com/ibraheemdev/modern-unix
 acheong08,ChatGPT,27700,https://github.com/acheong08/ChatGPT
-tqdm,tqdm,26500,https://github.com/tqdm/tqdm
+tqdm,tqdm,26600,https://github.com/tqdm/tqdm
 angular,angular-cli,26400,https://github.com/angular/angular-cli
 google,python-fire,25700,https://github.com/google/python-fire
